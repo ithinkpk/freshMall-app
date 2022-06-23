@@ -1,31 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-<<<<<<< HEAD
-import HomeView from '../views/layout/HomeView.vue';
-
-Vue.use(VueRouter);
-
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView,
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
-  },
-];
-
-const router = new VueRouter({
-  routes,
-});
-
-=======
 import store from '@/store';
 import getMenuRoute from '@/utils/permission';
 import HomeView from '../views/layout/HomeView.vue';
@@ -39,6 +13,7 @@ const ayncRouterMap = [{
   name: 'Product',
   meta: {
     title: '商品',
+    icon: 'shopping',
   },
   component: HomeView,
   children: [{
@@ -46,6 +21,7 @@ const ayncRouterMap = [{
     name: 'ProductList',
     meta: {
       title: '商品列表',
+      icon: 'ordered-list',
     },
     component: () => import('../views/page/productList.vue'),
   }, {
@@ -53,6 +29,7 @@ const ayncRouterMap = [{
     name: 'ProductAdd',
     meta: {
       title: '商品添加',
+      icon: 'file-add',
     },
     component: () => import('../views/page/productAdd.vue'),
   }, {
@@ -60,6 +37,7 @@ const ayncRouterMap = [{
     name: 'Category',
     meta: {
       title: '类目管理',
+      icon: 'project',
     },
     component: () => import('../views/page/productCategory.vue'),
   }],
@@ -72,14 +50,16 @@ const routes = [{
   component: HomeView,
   meta: {
     title: '首页',
+    icon: 'home',
   },
   children: [{
     path: 'index',
     name: 'index',
     meta: {
       title: '统计',
+      icon: 'bar-chart',
     },
-    cpmponent: () => import('../views/page/productIndex.vue'),
+    component: () => import('../views/page/productChart.vue'),
   }],
 },
 {
@@ -96,6 +76,7 @@ const routes = [{
   name: 'about',
   meta: {
     title: '关于我们',
+    icon: 'usergroup-delete',
   },
   component: About,
 },
@@ -112,9 +93,9 @@ router.beforeEach((to, from, next) => {
   if (to.path !== '/login') {
     if (store.state.user.appkey && store.state.user.username && store.state.user.role) {
       if (!isAddRouter) {
+        console.log(store.state.user.role);
         const menuRoutes = getMenuRoute(store.state.user.role, ayncRouterMap);
-        router.addRoutes(menuRoutes);
-        store.dispatch('changeMenuRoutes', routes.concat(menuRoutes));
+        store.dispatch('changeMenuRoutes', routes.concat(menuRoutes)).then(() => { next(); router.addRoutes(menuRoutes); });
         isAddRouter = true;
       }
       return next();
@@ -124,5 +105,4 @@ router.beforeEach((to, from, next) => {
   return next();
 });
 
->>>>>>> 5eb329f (菜单权限设置)
 export default router;

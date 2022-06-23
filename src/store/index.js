@@ -1,29 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-<<<<<<< HEAD
-=======
 import {
   setCookie,
   getUserCookie,
   removeCookie,
 } from '@/utils/userCookie';
->>>>>>> 5eb329f (菜单权限设置)
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-<<<<<<< HEAD
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  },
-=======
     // 导航收放状态 false为展开 true为收回
     collapsed: false,
     // 用户路由
@@ -72,5 +58,4 @@ export default new Vuex.Store({
     },
   },
   modules: {},
->>>>>>> 5eb329f (菜单权限设置)
 });
