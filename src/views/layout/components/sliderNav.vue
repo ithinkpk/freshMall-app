@@ -1,17 +1,17 @@
 <template>
   <div class="main-header">
-    <a-button
-      type="primary"
-      style="margin-bottom: 16px"
-      @click="toggleCollapsed"
-    >
+    <a-button type="primary" style="margin-bottom: 16px" @click="toggleCollapsed">
       <a-icon :type="$store.state.collapsed ? 'menu-unfold' : 'menu-fold'" />
     </a-button>
     <div class="breadcrumb">
-      <a-breadcrumb>
-        <a-breadcrumb-item>首页</a-breadcrumb-item>
+      <a-breadcrumb v-if="currentRoutes.length >1">
         <a-breadcrumb-item>
-          <a href>统计</a>
+          {{ currentRoutes[0] ? currentRoutes[0].meta.title : '' }}
+        </a-breadcrumb-item>
+        <a-breadcrumb-item>
+          <router-link :to="{ name: currentRoutes[1].name }">
+          {{ currentRoutes[1] ? currentRoutes[1].meta.title : '' }}
+          </router-link>
         </a-breadcrumb-item>
       </a-breadcrumb>
     </div>
@@ -27,7 +27,14 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      currentRoutes: this.$router.currentRoute.matched,
+    };
+  },
+  watch: {
+    $route() {
+      this.currentRoutes = this.$router.currentRoute.matched;
+    },
   },
   methods: {
     toggleCollapsed() {

@@ -48,6 +48,7 @@ const routes = [{
   path: '/',
   name: 'home',
   component: HomeView,
+  redirect: '/index',
   meta: {
     title: '首页',
     icon: 'home',
@@ -93,7 +94,6 @@ router.beforeEach((to, from, next) => {
   if (to.path !== '/login') {
     if (store.state.user.appkey && store.state.user.username && store.state.user.role) {
       if (!isAddRouter) {
-        console.log(store.state.user.role);
         const menuRoutes = getMenuRoute(store.state.user.role, ayncRouterMap);
         store.dispatch('changeMenuRoutes', routes.concat(menuRoutes)).then(() => { next(); router.addRoutes(menuRoutes); });
         isAddRouter = true;

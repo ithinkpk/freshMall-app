@@ -1,12 +1,19 @@
 <template>
-    <div>
-        <p>999999999999999999</p>
-    </div>
+  <div class="index">
+    <Card></Card>
+    <Chart></Chart>
+  </div>
 </template>
 
 <script>
-export default {
+import Card from '@/components/StatisticalForm.vue';
+import Chart from '@/components/StatisticalChart.vue';
 
+export default {
+  components: {
+    Card,
+    Chart,
+  },
 };
 </script>
 
