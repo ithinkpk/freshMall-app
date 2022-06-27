@@ -1,16 +1,20 @@
 <template>
   <div class="main-header">
-    <a-button type="primary" style="margin-bottom: 16px" @click="toggleCollapsed">
+    <a-button
+      type="primary"
+      style="margin-bottom: 16px"
+      @click="toggleCollapsed"
+    >
       <a-icon :type="$store.state.collapsed ? 'menu-unfold' : 'menu-fold'" />
     </a-button>
     <div class="breadcrumb">
-      <a-breadcrumb v-if="currentRoutes.length >1">
+      <a-breadcrumb v-if="currentRoutes.length > 1">
         <a-breadcrumb-item>
-          {{ currentRoutes[0] ? currentRoutes[0].meta.title : '' }}
+          {{ currentRoutes[0] ? currentRoutes[0].meta.title : "" }}
         </a-breadcrumb-item>
         <a-breadcrumb-item>
           <router-link :to="{ name: currentRoutes[1].name }">
-          {{ currentRoutes[1] ? currentRoutes[1].meta.title : '' }}
+            {{ currentRoutes[1] ? currentRoutes[1].meta.title : "" }}
           </router-link>
         </a-breadcrumb-item>
       </a-breadcrumb>
@@ -38,12 +42,12 @@ export default {
   },
   methods: {
     toggleCollapsed() {
-      this.$store.dispatch('changeCollapsed');
+      this.$store.dispatch("changeCollapsed");
     },
     logout() {
-      this.$store.dispatch('logout');
+      this.$store.dispatch("logout");
       this.$router.push({
-        name: 'login',
+        name: "login",
       });
     },
   },
